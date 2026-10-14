@@ -25,13 +25,16 @@ function drawCell() {
 
     const centerX = width / 2;
     const centerY = height / 2;
+const waterSlider = document.getElementById("water");
+const waterLevel = Number(waterSlider.value);
 
+// 80 is our normal water level
+const waterScale = 0.6 + (waterLevel / 100) * 0.5;
     // Gentle pulsing effect
     const pulseScale = 1 + Math.sin(pulse) * 0.025;
 
-    const cellWidth = Math.min(width * 0.66, 920) * pulseScale;
-    const cellHeight = Math.min(height * 0.55, 390) * pulseScale;
-
+   const cellWidth = Math.min(width * 0.66, 920) * pulseScale * waterScale;
+const cellHeight = Math.min(height * 0.55, 390) * pulseScale * waterScale;
     // Cell membrane
     ctx.beginPath();
     ctx.ellipse(
@@ -107,3 +110,4 @@ pauseButton.addEventListener("click", () => {
 window.addEventListener("resize", resizeCanvas);
 
 resizeCanvas();
+waterSlider.addEventListener("input", drawCell);
