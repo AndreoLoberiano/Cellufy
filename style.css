@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #10141a;
+    color: white;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+    background: #171d26;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header p {
+    color: #aeb7c4;
+}
+
+main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.simulation {
+    flex: 1;
+    background: #080b10;
+    border-radius: 15px;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cellCanvas {
+    width: 90%;
+    height: 450px;
+}
+
+.controls {
+    width: 260px;
+    padding: 20px;
+    background: #171d26;
+    border-radius: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin: 20px 0;
+}
+
+input[type="range"] {
+    width: 100%;
+}
