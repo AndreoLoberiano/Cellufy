@@ -1,4 +1,30 @@
-   <label>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cellufy — Cell Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧫 Cellufy</h1>
+        <p>Cell Simulation Laboratory</p>
+    </header>
+
+    <main>
+        <section class="simulation">
+            <canvas id="cellCanvas"></canvas>
+        </section>
+
+        <aside class="controls">
+            <h2>Cell Controls</h2>
+            <button id="startButton">▶ Start</button>
+            <button id="pauseButton">⏸ Pause</button>
+
+            <h3>Environment</h3>
+
+            <label>
                 Temperature
                 <input type="range" id="temperature"
                        min="0" max="100" value="37">
