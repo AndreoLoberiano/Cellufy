@@ -1,39 +1,109 @@
 const canvas = document.getElementById("cellCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 700;
-canvas.height = 450;
+const startButton = document.getElementById("startButton");
+const pauseButton = document.getElementById("pauseButton");
+
+let isRunning = false;
+let animationId = null;
+let pulse = 0;
+
+function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    drawCell();
+}
 
 function drawCell() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const width = canvas.width;
+    const height = canvas.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    // Gentle pulsing effect
+    const pulseScale = 1 + Math.sin(pulse) * 0.025;
+
+    const cellWidth = Math.min(width * 0.66, 920) * pulseScale;
+    const cellHeight = Math.min(height * 0.55, 390) * pulseScale;
 
     // Cell membrane
     ctx.beginPath();
-    ctx.ellipse(350, 225, 250, 160, 0, 0, Math.PI * 2);
-
-    ctx.fillStyle = "#b7e4c7";
+    ctx.ellipse(
+        centerX,
+        centerY,
+        cellWidth / 2,
+        cellHeight / 2,
+        0,
+        0,
+        Math.PI * 2
+    );
+    ctx.fillStyle = "#B7E4C7";
     ctx.fill();
-
-    ctx.strokeStyle = "#52b788";
-    ctx.lineWidth = 8;
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "#52B788";
     ctx.stroke();
 
     // Nucleus
+    const nucleusRadiusX = Math.min(width * 0.09, 120);
+    const nucleusRadiusY = Math.min(height * 0.13, 90);
+
     ctx.beginPath();
-    ctx.arc(350, 225, 65, 0, Math.PI * 2);
-
-    ctx.fillStyle = "#9d4edd";
+    ctx.ellipse(
+        centerX,
+        centerY,
+        nucleusRadiusX,
+        nucleusRadiusY,
+        0,
+        0,
+        Math.PI * 2
+    );
+    ctx.fillStyle = "#9D4EDD";
     ctx.fill();
-
-    ctx.strokeStyle = "#6a1b9a";
     ctx.lineWidth = 5;
+    ctx.strokeStyle = "#6A1B9A";
     ctx.stroke();
 
     // Nucleus label
-    ctx.fillStyle = "white";
-    ctx.font = "18px Arial";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "bold 18px Arial";
     ctx.textAlign = "center";
-    ctx.fillText("Nucleus", 350, 230);
+    ctx.textBaseline = "middle";
+    ctx.fillText("Nucleus", centerX, centerY);
 }
 
-drawCell();
+function animate() {
+    if (!isRunning) return;
+
+    pulse += 0.045;
+    drawCell();
+
+    animationId = requestAnimationFrame(animate);
+}
+
+startButton.addEventListener("click", () => {
+    if (isRunning) return;
+
+    isRunning = true;
+    animate();
+});
+
+pauseButton.addEventListener("click", () => {
+    isRunning = false;
+
+    if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+    }
+
+    drawCell();
+});
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
