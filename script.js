@@ -81,18 +81,53 @@ function drawCell() {
     const cellHeight = Math.min(height * 0.72, 320)
         * waterScale * pulseScale;
 
-    // Cell membrane
-    ctx.beginPath();
-    ctx.ellipse(
-        centerX, centerY,
-        cellWidth / 2, cellHeight / 2,
-        0, 0, Math.PI * 2
+   // Jiggly cell membrane
+const points = 64;
+const membrane = [];
+
+for (let i = 0; i < points; i++) {
+    const angle = (i / points) * Math.PI * 2;
+
+    const wobble =
+        Math.sin(pulse * 1.7 + i * 0.45) * 0.018 +
+        Math.sin(pulse * 2.3 + i * 0.21) * 0.012;
+
+    const radiusX = (cellWidth / 2) * (1 + wobble);
+    const radiusY = (cellHeight / 2) * (1 + wobble);
+
+    membrane.push({
+        x: centerX + Math.cos(angle) * radiusX,
+        y: centerY + Math.sin(angle) * radiusY
+    });
+}
+
+ctx.beginPath();
+
+ctx.moveTo(membrane[0].x, membrane[0].y);
+
+for (let i = 0; i < points; i++) {
+    const current = membrane[i];
+    const next = membrane[(i + 1) % points];
+
+    const midpointX = (current.x + next.x) / 2;
+    const midpointY = (current.y + next.y) / 2;
+
+    ctx.quadraticCurveTo(
+        current.x,
+        current.y,
+        midpointX,
+        midpointY
     );
-    ctx.fillStyle = "#B7E4C7";
-    ctx.fill();
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "#52B788";
-    ctx.stroke();
+}
+
+ctx.closePath();
+
+ctx.fillStyle = "#B7E4C7";
+ctx.fill();
+
+ctx.lineWidth = 5;
+ctx.strokeStyle = "#52B788";
+ctx.stroke();
 
     // Nucleus
     const nucleusScale = Math.min(width, height) * 0.001;
