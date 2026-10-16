@@ -17,12 +17,12 @@ let pulse = 0;
 
 function resizeCanvas() {
     const rect = canvas.getBoundingClientRect();
-    const pixelRatio = window.devicePixelRatio || 1;
 
-    canvas.width = Math.round(rect.width * pixelRatio);
-    canvas.height = Math.round(rect.height * pixelRatio);
+    canvas.width = rect.width;
+    canvas.height = rect.height;
 
-    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
     drawCell();
 }
 
