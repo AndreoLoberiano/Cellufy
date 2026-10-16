@@ -88,10 +88,10 @@ const membrane = [];
 for (let i = 0; i < points; i++) {
     const angle = (i / points) * Math.PI * 2;
 
-    const wobble =
-        Math.sin(pulse * 1.7 + i * 0.45) * 0.018 +
-        Math.sin(pulse * 2.3 + i * 0.21) * 0.012;
-
+const wobble =
+    Math.sin(pulse * 1.7 + i * 0.45) * 0.045 +
+    Math.sin(pulse * 2.3 + i * 0.21) * 0.025;
+    
     const radiusX = (cellWidth / 2) * (1 + wobble);
     const radiusY = (cellHeight / 2) * (1 + wobble);
 
