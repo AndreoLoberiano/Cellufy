@@ -1,66 +1,135 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    background: #101820;
+    color: #f1f5f9;
     font-family: Arial, sans-serif;
-    background: #10141a;
-    color: white;
 }
 
 header {
-    padding: 20px;
     text-align: center;
-    background: #171d26;
+    padding: 24px 12px;
+    background: #172b35;
+    border-bottom: 2px solid #52b788;
 }
 
 header h1 {
     margin: 0;
+    color: #95e6b3;
+    font-size: 2.4rem;
 }
 
 header p {
-    color: #aeb7c4;
+    color: #cbd5e1;
 }
 
 main {
-    display: flex;
+    width: min(1100px, 94%);
+    margin: 24px auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(250px, 1fr);
     gap: 20px;
-    padding: 20px;
+    align-items: start;
 }
 
-.simulation {
-    flex: 1;
-    background: #080b10;
-    border-radius: 15px;
-    min-height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.simulation,
+.controls {
+    background: #1b2b34;
+    border: 1px solid #34515c;
+    border-radius: 16px;
+    padding: 18px;
 }
 
 #cellCanvas {
-    width: 90%;
-    height: 450px;
+    display: block;
+    width: 100%;
+    height: 420px;
+    background: #0d1920;
+    border-radius: 10px;
 }
 
-.controls {
-    width: 260px;
-    padding: 20px;
-    background: #171d26;
-    border-radius: 15px;
+.hint {
+    color: #b7c9d1;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.controls h2 {
+    margin-top: 0;
+    color: #95e6b3;
+}
+
+.controls h3 {
+    margin-bottom: 12px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
 }
 
 button {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
+    flex: 1;
     border: none;
     border-radius: 8px;
+    padding: 12px 8px;
+    background: #52b788;
+    color: #10221a;
+    font-weight: bold;
     cursor: pointer;
 }
 
+button:hover {
+    background: #74d3a2;
+}
+
 label {
-    display: block;
-    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 20px;
 }
 
 input[type="range"] {
     width: 100%;
+    margin: 14px 0;
+    accent-color: #52b788;
+    cursor: pointer;
+}
+
+.health-panel {
+    margin-top: 24px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #10221f;
+}
+
+#healthStatus {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #95e6b3;
+}
+
+#healthMessage {
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    padding: 12px;
+    color: #9fb2bc;
+}
+
+@media (max-width: 700px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    #cellCanvas {
+        height: 320px;
+    }
 }
