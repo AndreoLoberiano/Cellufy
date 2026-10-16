@@ -181,6 +181,7 @@ temperatureSlider.addEventListener("input", updateHealth);
 
 window.addEventListener("resize", resizeCanvas);
 
-updateHealth();
-resizeCanvas();
-
+window.addEventListener("load", () => {
+    updateHealth();
+    resizeCanvas();
+});
